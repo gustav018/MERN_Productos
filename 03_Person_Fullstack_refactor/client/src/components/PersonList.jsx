@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "axios"
 import { Link } from "react-router-dom";
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'
 import PropTypes from 'prop-types';
-import DeleteProduct from "./DeleteProduct";
+import DeletePerson from "./DeletePerson";
 
-const ProductList = ({ products, setProducts }) => {
+
+const PersonList = ({ products, setProducts }) => {
 
     const successDelete = (productId) => {
         Swal.fire({
             icon: "success",
-            title: "Producto eliminado!",
-            text: "Eliminaste un producto!!",
+            title: "Eliminado!",
+            text: "Eliminaste una product!!",
         });
-        setProducts(products.filter(product => product._id !== productId));
+        setProducts(products.filter(product => product._id !== productId))
     }
 
     const [isLoading, setIsLoading] = useState(true);
@@ -33,46 +34,42 @@ const ProductList = ({ products, setProducts }) => {
     }, [setProducts]);
 
     if (isLoading) {
-        return <h1>Cargando...</h1>
+        return <h1>Loading...</h1>
     }
 
     return (
-        <>
-        
-         <table className="table table-striped table-hover mt-5">
+        <table className="table table-striped table-hover mt-5">
             <thead>
                 <tr>
-                    <th>Título</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Acciones</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Age</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {
                     products.map(product => (
                         <tr key={product._id}>
-                            <td>{product.title}</td>
-                            <td>{product.descripcion}</td>
-                            <td>${product.price}</td>
+                            <td>{product.firstName}</td>
+                            <td>{product.lastName}</td>
+                            <td>{product.age}</td>
                             <td>
                                 <Link to={`/product/${product._id}`} className="btn btn-outline-primary btn-sm me-1">Detalle</Link>
                                 <Link to={`/product/${product._id}/update`} className="btn btn-outline-warning btn-sm me-1">Actualizar</Link>
-                                <DeleteProduct productId={product._id} successCallback={successDelete} />
+                                <DeletePerson productId={product._id} successCallback={successDelete} />
                             </td>
                         </tr>
                     ))
                 }
             </tbody>
         </table>
-        </>
-       
     )
 }
 
-ProductList.propTypes = {
+PersonList.propTypes = {
     products: PropTypes.array,
     setProducts: PropTypes.func.isRequired
 }
 
-export default ProductList
+export default PersonList

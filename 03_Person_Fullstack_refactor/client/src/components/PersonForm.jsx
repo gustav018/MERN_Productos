@@ -3,29 +3,29 @@ import useForm from "../hooks/useForm"
 import axios from "axios"
 import Swal from 'sweetalert2'
 import PropTypes from 'prop-types';
-import FormularioProduct from "./FormularioProduct"
+import FormularioPerson from "./FormularioPerson"
 
-const ProductForm = ({updateProducts}) => {
+const PersonForm = ({updatePersons}) => {
 
     const initialValues = {
-        title:'',
-        descripcion: '',
-        price: 0
+        firstName:'',
+        lastName: '',
+        age: 18
     }
-    const {values: product, handleChange, clearData} = useForm(initialValues)
+    const {values: person, handleChange, clearData} = useForm(initialValues)
     const [error, setError] = useState("")
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('http://localhost:8000/api/product', product)
+        axios.post('http://localhost:8000/api/person', person)
             .then(res => {
-                console.log(res.data.product)
-                updateProducts(res.data.product)
+                console.log(res.data.person)
+                updatePersons(res.data.person)
                 clearData()
                 Swal.fire({
                     icon: "success",
                     title: "Genial!",
-                    text: "Agregaste una producta!!",
+                    text: "Agregaste una persona!!",
                 });
                 setError("")
             })
@@ -36,12 +36,12 @@ const ProductForm = ({updateProducts}) => {
     }
 
     return (
-        <FormularioProduct handleSubmit={handleSubmit} error={error} product={product} handleChange={handleChange} />
+        <FormularioPerson handleSubmit={handleSubmit} error={error} person={person} handleChange={handleChange} />
     )
 }
 
-ProductForm.propTypes = {
-    updateProducts: PropTypes.func
+PersonForm.propTypes = {
+    updatePersons: PropTypes.func
 }
 
-export default ProductForm
+export default PersonForm

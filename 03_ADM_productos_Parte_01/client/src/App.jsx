@@ -1,22 +1,22 @@
-import './App.css'
-import ProductForm from './components/ProductForm'
+import { Route, Routes } from 'react-router-dom'
+import ListarCrearProduct from './ListarCrearProduct'
+import DetalleProduct from './DetalleProduct'
+import ProductFormUpdate from './components/ProductFormUpdate'
 
-
-function App() {
-
+const App = () => {
     return (
-        <div className='container text-center'>
-            <div className='row'>
-                <div className='col-3'></div>
-                <div className='col-6'>
-                    <h3 className='mt-5'>Product Manager</h3>
-                    <hr />
-                    <ProductForm />
-                </div>
-                <div className='col-3'></div>
+        <>
+            <div className='container mt-3'>
+                <Routes>
+                    <Route path="/" element={<ListarCrearProduct />} />
+                    <Route path="/product/:id" element={<DetalleProduct />} />
+                    <Route path="/product/:id/edit" element={<ProductFormUpdate />} />
+                </Routes>
             </div>
-        </div>
+        </>
     )
+
 }
 
 export default App
+
